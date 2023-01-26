@@ -5,12 +5,16 @@ import com.example.start.repository.MemberRepository;
 import com.example.start.repository.MemoryMemberRepository;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MemberService {
 
   private final MemberRepository memberRepository;
 
-  public MemberService(MemberRepository memberRepository) {
+  @Autowired
+  public MemberService(MemoryMemberRepository memberRepository) {
     this.memberRepository = memberRepository;
   }
 

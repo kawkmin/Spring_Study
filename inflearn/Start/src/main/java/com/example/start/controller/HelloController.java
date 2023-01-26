@@ -23,9 +23,9 @@ public class HelloController {
   }
 
   @GetMapping("hello-string")
-  @ResponseBody
+  @ResponseBody // view에 보내지 않는다. (viewResolver 사용 x)
   public String helloString(@RequestParam("name") String name) {
-    return "hello " + name; // view에 매핑 x
+    return "hello " + name; // 소스로 보면 그대로 있다.
   }
 
   @GetMapping("hello-api")
