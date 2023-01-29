@@ -2,8 +2,10 @@ package com.example.start.controller;
 
 import com.example.start.domain.Member;
 import com.example.start.service.MemberService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -30,5 +32,13 @@ public class MemberController {
     memberService.join(member);
 
     return "redirect:/";// 홈 화면으로 보내기
+  }
+
+  @GetMapping("members")
+  public String list(Model model) {
+    List<Member> members = memberService.findMembers();
+    model.addAttribute("members", members);
+
+    return "members/memberList";
   }
 }
