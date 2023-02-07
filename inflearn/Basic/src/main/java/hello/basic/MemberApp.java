@@ -3,12 +3,12 @@ package hello.basic;
 import hello.basic.member.Grade;
 import hello.basic.member.Member;
 import hello.basic.member.MemberService;
-import hello.basic.member.MemberServiceImpl;
 
 public class MemberApp {
 
   public static void main(String[] args) {
-    MemberService memberService = new MemberServiceImpl();
+    AppConfig appConfig = new AppConfig();
+    MemberService memberService = appConfig.memberService();
     Member member = new Member(1L, "memberA", Grade.VIP);
     memberService.join(member);
 
