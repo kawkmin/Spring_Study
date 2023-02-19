@@ -9,14 +9,27 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderServiceImpl implements OrderService {
 
+  // @Autowired 필드 주입 (테스트가 힘들어 비권장)
   private final MemberRepository memberRepository;
   private final DiscountPolicy discountPolicy;
+
+  /* @Atuowired setter 주입
+  public void setMemberRepository(MemberRepository memberRepository) {
+    this.memberRepository = memberRepository;
+  } */
 
   @Autowired
   public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
     this.memberRepository = memberRepository;
     this.discountPolicy = discountPolicy;
   }
+
+  /* 일반 메서드 주입(잘 사용하지 않음)
+  @Autowired
+  public void init(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+    this.memberRepository = memberRepository;
+    this.discountPolicy = discountPolicy;
+  }*/
 
   public MemberRepository getMemberRepository() {
     return memberRepository;
