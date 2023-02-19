@@ -17,10 +17,10 @@ import org.springframework.context.annotation.FilterType;
 )
 public class AutoAppConfig {
 
-  @Bean
+/*  @Bean
     // @Bean(name = "memoryMemberRepository")
     // 자동으로 생성되는 memoryMemberRepository Bean의 이름이 같지만, 수동이 우선권을 가짐
   MemberRepository memberRepository() {
     return new MemoryMemberRepository();
-  }
+  }*/
 }
