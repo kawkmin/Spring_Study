@@ -20,7 +20,7 @@ public class BeanLifeCycleTest {
   @Configuration
   static class LifeCycleConfig {
 
-    @Bean(initMethod = "init", destroyMethod = "close")
+    @Bean//(initMethod = "init", destroyMethod = "close") 외부 라이브러리 초기화엔 유효하다
     public NetworkClient networkClient() {
       NetworkClient networkClient = new NetworkClient();
       networkClient.setUrl("http://hello-spring.dev");
