@@ -3,7 +3,7 @@ package hello.servlet.web.frontcontroller;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ModelView {
+public class ModelView { //파라미터를 넘기기 위해
 
   private String viewName;
   private Map<String, Object> model = new HashMap<>();

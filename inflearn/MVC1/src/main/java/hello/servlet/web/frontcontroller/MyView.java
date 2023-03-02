@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-public class MyView {
+public class MyView { //템플릿으로 http 재요청 하기 위해
 
   private String viewPath;
 
