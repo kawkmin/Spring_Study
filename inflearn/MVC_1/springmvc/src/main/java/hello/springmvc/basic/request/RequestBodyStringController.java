@@ -25,7 +25,7 @@ public class RequestBodyStringController {
   @PostMapping("/request-body-string-v1")
   public void requestBodyStringV1(HttpServletRequest request, HttpServletResponse response)
       throws IOException {
-    ServletInputStream inputStream = request.getInputStream();
+    ServletInputStream inputStream = request.getInputStream(); //HTTP 바디 직접 조회
     String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
 
     log.info("messageBody={}", messageBody);
@@ -43,7 +43,7 @@ public class RequestBodyStringController {
 
   @PostMapping("/request-body-string-v3")
   public HttpEntity<String> requestBodyStringV3(
-      RequestEntity<String> httpEntity) //RequestEntity = HttpEntity 에서 상속받은 것
+      RequestEntity<String> httpEntity) //RequestEntity = HttpEntity(HTTP 정보 편리 조회 제공)에서 상속받은 것
       throws IOException {
     String messageBody = httpEntity.getBody();
     log.info("messageBody={}", messageBody);
