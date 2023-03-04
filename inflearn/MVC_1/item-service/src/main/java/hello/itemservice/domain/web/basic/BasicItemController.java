@@ -73,12 +73,20 @@ public class BasicItemController {
     return "basic/item";
   }
 
-  @PostMapping("/add")
+  //@PostMapping("/add")
   public String addItemV4(Item item, Model model) { //@ModelAttribute 는 객체가 오면 생략 가능
 
     itemRepository.save(item);
 
     return "basic/item";
+  }
+
+  @PostMapping("/add")
+  public String addItemV5(Item item) {
+
+    itemRepository.save(item);
+
+    return "redirect:/basic/items/" + item.getId(); //위의 item 메소드(Get)를 리턴하는 거랑 같아짐
   }
 
   @GetMapping("/{itemId}/edit")
