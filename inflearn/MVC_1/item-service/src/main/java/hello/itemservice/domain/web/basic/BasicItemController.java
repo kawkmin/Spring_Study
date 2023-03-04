@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/basic/items")
@@ -81,12 +82,23 @@ public class BasicItemController {
     return "basic/item";
   }
 
-  @PostMapping("/add")
+
+  //@PostMapping("/add")
   public String addItemV5(Item item) {
 
     itemRepository.save(item);
 
     return "redirect:/basic/items/" + item.getId(); //위의 item 메소드(Get)를 리턴하는 거랑 같아짐
+  }
+
+  @PostMapping("/add")
+  public String addItemV6(Item item, RedirectAttributes redirectAttributes) {
+
+    Item saveItem = itemRepository.save(item);
+    redirectAttributes.addAttribute("itemId", saveItem.getId()); //{itemId}
+    redirectAttributes.addAttribute("status", true); //남는 애는 ?sta.. 쿼리 파라미터로
+
+    return "redirect:/basic/items/{itemId}";
   }
 
   @GetMapping("/{itemId}/edit")
