@@ -25,7 +25,7 @@
     </div>
     <div>
       <label for="price">가격</label>
-      <input type="text" id="price" th:field="*{price}" class="form-control"
+      <input type="text" id="price" th:field="${item.price}" class="form-control"
              placeholder="가격을 입력하세요">
     </div>
     <div>
@@ -35,14 +35,11 @@
     </div>
 
     <hr class="my-4">
-
-    <hr class="my-4">
     <!-- single checkbox -->
     <div>판매 여부</div>
     <div>
       <div class="form-check">
-        <input type="checkbox" id="open" name="open" class="form-check-input">
-        <input type="hidden" name="_open" value="on" /> <!-- 히든 필드 추가 (위의 false 를 전송해준다)-->
+        <input type="checkbox" id="open" th:field="*{open}" class="form-check-input">
         <label for="open" class="form-check-label">판매 오픈</label>
       </div>
     </div>
