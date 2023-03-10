@@ -2,6 +2,7 @@ package hello.itemservice.web.form;
 
 import hello.itemservice.domain.item.Item;
 import hello.itemservice.domain.item.ItemRepository;
+import hello.itemservice.domain.item.ItemType;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -30,8 +31,12 @@ public class FormItemController {
     return regions;
   }
 
-  @GetMapping
+  @ModelAttribute("itemTypes")
+  public ItemType[] itemTypes() { // enum의 모든 정보 배열로 반환
+    return ItemType.values();
+  }
 
+  @GetMapping
   public String items(Model model) {
     List<Item> items = itemRepository.findAll();
     model.addAttribute("items", items);
@@ -54,6 +59,7 @@ public class FormItemController {
 
   @GetMapping("/add")
   public String addForm(Model model) {
+
     model.addAttribute("item", new Item());
 
     Map<String, String> regions = new LinkedHashMap<>();
@@ -69,6 +75,7 @@ public class FormItemController {
   public String addItem(@ModelAttribute Item item, RedirectAttributes redirectAttributes) {
     log.info("item.open={}", item.getOpen());
     log.info("item.regions={}", item.getRegions());
+    log.info("item.itemType={}", item.getItemType());
 
     Item savedItem = itemRepository.save(item);
     redirectAttributes.addAttribute("itemId", savedItem.getId());
