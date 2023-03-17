@@ -2,6 +2,7 @@ package hello.jdbc.collection;
 
 import static hello.jdbc.collection.ConnectionConst.*;
 
+import com.zaxxer.hikari.HikariDataSource;
 import com.zaxxer.hikari.util.DriverDataSource;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -29,9 +30,23 @@ public class ConnectionTest {
     useDataSource(dataSource);
   }
 
+  @Test
+  void dataSourceConnectionPool() throws SQLException, InterruptedException {
+    HikariDataSource dataSource = new HikariDataSource();
+    dataSource.setJdbcUrl(URL);
+    dataSource.setUsername(USERNAME);
+    dataSource.setPassword(PASSWORD);
+    dataSource.setMaximumPoolSize(10);
+    dataSource.setPoolName("MyPool");
+
+    useDataSource(dataSource);
+    Thread.sleep(1000);
+  }
+
   private void useDataSource(DataSource dataSource) throws SQLException {
     Connection con1 = dataSource.getConnection();
     Connection con2 = dataSource.getConnection();
+
     log.info("connection={}, class={}", con1, con1.getClass());
     log.info("connection={}, class={}", con2, con2.getClass());
   }
