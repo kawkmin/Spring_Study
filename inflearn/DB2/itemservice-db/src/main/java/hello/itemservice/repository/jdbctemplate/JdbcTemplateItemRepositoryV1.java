@@ -15,9 +15,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 @Slf4j
+@Repository
 public class JdbcTemplateItemRepositoryV1 implements ItemRepository {
 
   private final JdbcTemplate template;
@@ -28,7 +30,7 @@ public class JdbcTemplateItemRepositoryV1 implements ItemRepository {
 
   @Override
   public Item save(Item item) {
-    String sql = "insert into item(item_name, price, qunatity) values (?,?,?)";
+    String sql = "insert into item (item_name, price, quantity) values (?,?,?)";
     KeyHolder keyHolder = new GeneratedKeyHolder();
     template.update(connection -> {
       //자동 증가 키
@@ -70,7 +72,7 @@ public class JdbcTemplateItemRepositoryV1 implements ItemRepository {
     String itemName = cond.getItemName();
     Integer maxPrice = cond.getMaxPrice();
 
-    String sql = "select id,item_name,price,quantity from item where id =?";
+    String sql = "select id,item_name,price,quantity from item";
 
     //동적 쿼리
     if (StringUtils.hasText(itemName) || maxPrice != null) {
