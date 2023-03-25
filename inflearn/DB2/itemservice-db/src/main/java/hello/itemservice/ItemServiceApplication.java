@@ -1,15 +1,13 @@
 package hello.itemservice;
 
-import hello.itemservice.config.*;
+import hello.itemservice.config.V2Config;
 import hello.itemservice.repository.ItemRepository;
-import javax.sql.DataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 
 //@Import(MemoryConfig.class)
@@ -19,7 +17,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 //@Import(MyBatisConfig.class)
 //@Import(JpaConfig.class)
 //@Import(SpringDataJpaConfig.class)
-@Import(QuerydslConfig.class)
+@Import(V2Config.class)
 @Slf4j
 @SpringBootApplication(scanBasePackages = "hello.itemservice.web")
 public class ItemServiceApplication {
