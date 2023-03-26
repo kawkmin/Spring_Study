@@ -11,6 +11,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.interceptor.DefaultTransactionAttribute;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 @Slf4j
 @SpringBootTest
@@ -49,6 +50,22 @@ public class BasicTxTest {
     TransactionStatus tx2 = txManager.getTransaction(new DefaultTransactionAttribute());
     log.info("트랜잭션2 커밋 시작");
     txManager.commit(tx2);
+  }
+
+  @Test
+  void inner_commit() {
+    log.info("외부 트랜잭션 시작");
+    TransactionStatus outer = txManager.getTransaction(new DefaultTransactionDefinition());
+    log.info("outer.isNewTransaction()={}", outer.isNewTransaction());
+
+    log.info("내부 트랜잭션 시작");
+    TransactionStatus inner = txManager.getTransaction(new DefaultTransactionDefinition());
+    log.info("inner.isNewTransaction()={}", inner.isNewTransaction());
+    log.info("내부 트랜잭션 커밋");
+    txManager.commit(inner);
+
+    log.info("외부 트랜잭션 커밋");
+    txManager.commit(outer);
   }
 }
 
