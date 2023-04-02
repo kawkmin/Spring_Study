@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Product {
@@ -17,8 +18,8 @@ public class Product {
 
   private String name;
 
-  @ManyToMany(mappedBy = "products")
-  private List<Member> members = new ArrayList<>();
+  @OneToMany(mappedBy = "product")
+  private List<MemberProduct> memberProducts = new ArrayList<>();
 
   public Long getId() {
     return id;
