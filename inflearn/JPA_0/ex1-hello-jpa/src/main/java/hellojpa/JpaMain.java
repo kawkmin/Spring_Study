@@ -17,23 +17,15 @@ public class JpaMain {
 
     try {
 
-      Team team = new Team();
-      team.setName("TeamA");
-      em.persist(team);
-
       Member member = new Member();
       member.setName("member1");
-      //member.changeTeam(team);
-      team.addMember(member);
       em.persist(member);
 
-      em.flush();
-      em.clear();
+      Team team = new Team();
+      team.setName("teamA");
+      team.getMembers().add(member);
 
-      Member findMember = em.find(Member.class, member.getId());
-      List<Member> members = findMember.getTeam().getMembers();
-
-      System.out.println("members = " + members); //무한루프
+      em.persist(team); //update쿼리 하나더 -> 운영힘들어짐
 
       tx.commit();
     } catch (Exception e) {
