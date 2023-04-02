@@ -16,12 +16,19 @@ public class JpaMain {
     tx.begin();
 
     try {
-      Member member = new Member();
-      member.setId(2L);
-      member.setUsername("C");
-      member.setRoleType(RoleType.USER);
 
-      em.persist(member);
+/*      IDENTITY
+      System.out.println("===========");
+      em.persist(member); //flush를 안해도, 쿼리실행.(IDENTITY는 PK를 모르기 때문)
+      System.out.println("member.getId() = " + member.getId());
+      System.out.println("===========");*/
+
+/*      SEQUENCE
+      System.out.println("===========");
+      em.persist(member); //쿼리 발생X, 스퀀스에서 가져옴.
+      System.out.println("member.getId() = " + member.getId());
+      System.out.println("===========");*/
+
 
       tx.commit();
     } catch (Exception e) {
