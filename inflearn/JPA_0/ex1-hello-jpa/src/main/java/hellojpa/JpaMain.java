@@ -17,18 +17,23 @@ public class JpaMain {
 
     try {
 
-/*      IDENTITY
-      System.out.println("===========");
-      em.persist(member); //flush를 안해도, 쿼리실행.(IDENTITY는 PK를 모르기 때문)
-      System.out.println("member.getId() = " + member.getId());
-      System.out.println("===========");*/
+      // 저장
+      Team team = new Team();
+      team.setName("TeamA");
+      em.persist(team);
+      //회원 저장
+      Member member = new Member();
+      member.setName("member1");
+      member.setTeam(team);
 
-/*      SEQUENCE
-      System.out.println("===========");
-      em.persist(member); //쿼리 발생X, 스퀀스에서 가져옴.
-      System.out.println("member.getId() = " + member.getId());
-      System.out.println("===========");*/
+      em.persist(member);
+      Member findMember = em.find(Member.class, member.getId());
+      Team findTeam = findMember.getTeam();
+      System.out.println("findTeam = " + findTeam.getName());
 
+      //
+      Team newTeam = em.find(Team.class, 100L);
+      findMember.setTeam(newTeam);
 
       tx.commit();
     } catch (Exception e) {
