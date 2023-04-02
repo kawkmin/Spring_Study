@@ -17,19 +17,26 @@ public class JpaMain {
 
     try {
 
-      //회원 저장
-      Member member = new Member();
-      member.setName("member1");
-      em.persist(member);
-
-      // 저장
       Team team = new Team();
       team.setName("TeamA");
-      team.getMembers().add(member); //오류 주인에 값을 설정해야함.
       em.persist(team);
 
-      em.flush();
-      em.clear();
+      Member member = new Member();
+      member.setName("member1");
+      member.setTeam(team);
+      em.persist(member);
+
+      team.getMembers().add(member); //역방향에 안넣어주면, flush하지 않는 이상, mappedBy안됨
+
+      //em.flush();
+      //em.clear();
+
+      Member findMember = em.find(Member.class, member.getId());
+      List<Member> members = findMember.getTeam().getMembers();
+
+      for (Member member1 : members) {
+        System.out.println("member1 = " + member1.getName());
+      }
 
       tx.commit();
     } catch (Exception e) {
