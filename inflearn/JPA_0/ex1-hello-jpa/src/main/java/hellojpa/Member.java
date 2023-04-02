@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -46,7 +45,8 @@ public class Member {
     return team;
   }
 
-  public void setTeam(Team team) {
+  public void changeTeam(Team team) {
     this.team = team;
+    team.getMembers().add(this);
   }
 }

@@ -23,13 +23,11 @@ public class JpaMain {
 
       Member member = new Member();
       member.setName("member1");
-      member.setTeam(team);
+      member.changeTeam(team);
       em.persist(member);
 
-      team.getMembers().add(member); //역방향에 안넣어주면, flush하지 않는 이상, mappedBy안됨
-
-      //em.flush();
-      //em.clear();
+      em.flush();
+      em.clear();
 
       Member findMember = em.find(Member.class, member.getId());
       List<Member> members = findMember.getTeam().getMembers();
