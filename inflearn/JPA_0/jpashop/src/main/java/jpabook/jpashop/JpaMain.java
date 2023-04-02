@@ -4,6 +4,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import jpabook.jpashop.domain.Order;
+import jpabook.jpashop.domain.OrderItem;
 
 public class JpaMain {
 
@@ -15,6 +17,15 @@ public class JpaMain {
     tx.begin();
 
     try {
+
+      Order order = new Order();
+      //order.addOrderItem(new OrderItem()); 양방향
+      em.persist(order);
+
+      OrderItem orderItem = new OrderItem(); //양방향을 굳이 안해도 로직으로 커버 가능
+      orderItem.setOrder(order);
+
+      em.persist(orderItem);
 
       tx.commit();
     } catch (Exception e) {
