@@ -19,30 +19,16 @@ public class JpaMain {
 
     try {
 
-      Team team = new Team();
-      team.setName("teamA");
-      em.persist(team);
+      Child child1 = new Child();
+      Child child2 = new Child();
 
-      Member member1 = new Member();
-      member1.setName("member1");
-      member1.setTeam(team);
-      em.persist(member1);
+      Parent parent = new Parent();
+      parent.addChild(child1);
+      parent.addChild(child2);
 
-      em.flush();
-      em.clear();
-
-//      Member m = em.getReference(Member.class, member1.getId());
-//
-//      System.out.println("m = " + m.getTeam().getClass());
-//
-//      System.out.println("=========");
-//      m.getTeam().getClass(); //초기화 .실제 사용할 때 쿼리 실행
-//      System.out.println("=========");
-
-      List<Member> members = em.createQuery("select m from Member m", Member.class)
-          .getResultList();
-      //sql: select * from Member 쿼리 실행 후, 보니까 즉시지연이라 Team도 바로 가져오는 쿼리 실행 -> 각 맴버마다 팀 다 가져옴(1+N개)
-      // lazy로 모두 가져오는 쿼리 하고싶으면, select m from Member m fetch join 쓰면 되니까 모두 lazy로 일단 설정하자
+      em.persist(parent);
+//      em.persist(child1); cascade all 하면 자식 엔티티도 전이되어 쿼리 생성
+//      em.persist(child2);
 
       tx.commit();
     } catch (Exception e) {
