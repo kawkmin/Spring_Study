@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -21,7 +22,8 @@ public class Member extends BaseEntity {
   @Column(name = "USERNAME")
   private String name;
 
-  @ManyToOne
+  //@ManyToOne(fetch = FetchType.EAGER) 실무에선 즉시로딩 X
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false) //양방향. 읽기 전용으로, 주인 지정x
   private Team team;
 
@@ -32,6 +34,14 @@ public class Member extends BaseEntity {
 //  @ManyToMany
 //  @JoinTable(name = "MEMBER_PRODUCT")
 //  private List<Product> products = new ArrayList<>();
+
+  public Team getTeam() {
+    return team;
+  }
+
+  public void setTeam(Team team) {
+    this.team = team;
+  }
 
   @OneToMany(mappedBy = "member")
   private List<MemberProduct> memberProducts = new ArrayList<>();

@@ -19,41 +19,30 @@ public class JpaMain {
 
     try {
 
+      Team team = new Team();
+      team.setName("teamA");
+      em.persist(team);
+
       Member member1 = new Member();
       member1.setName("member1");
-
+      member1.setTeam(team);
       em.persist(member1);
 
       em.flush();
       em.clear();
 
-//      Member m1 = em.find(Member.class, member1.getId()); //쿼리 나감
-//      System.out.println("m1.getClass() = " + m1.getClass());
-//      Member reference = em.getReference(Member.class, member1.getId()); // 쿼리 안나감
-//      System.out.println("reference.getClass() = " + reference.getClass());
+//      Member m = em.getReference(Member.class, member1.getId());
 //
-//      System.out.println("a == a: " + (m1 == reference)); // 굳이 1차캐시에 엔티티가 있으면, 프록시 안함, jpa는 무조건 참 보장
+//      System.out.println("m = " + m.getTeam().getClass());
+//
+//      System.out.println("=========");
+//      m.getTeam().getClass(); //초기화 .실제 사용할 때 쿼리 실행
+//      System.out.println("=========");
 
-      //System.out.println("findMember.getName() = " + m1.getName()); //쿼리 다시 나감
-// =====================================================================================
-      Member refMember = em.getReference(Member.class, member1.getId());
-      System.out.println("refMember.getClass() = " + refMember.getClass());
-// =====================================================================================
-//      Member findMember = em.find(Member.class, member1.getId()); //find 이지만 밑에 ==을 지키기 위해, prox로..
-//      System.out.println("findMember.getClass() = " + findMember.getClass());
-//
-//      System.out.println("refMember == findMember: " + (refMember == findMember));
-// =====================================================================================
-//      em.detach(refMember);
-//      //em.close();
-//      //em.clear();
-//
-//      refMember.getName(); // 불가능
-// =====================================================================================
-      //refMember.getName(); 강제 초기화
-      Hibernate.initialize(refMember); //강제 초기화
-      System.out.println(
-          "isLoaded = " + emf.getPersistenceUnitUtil().isLoaded(refMember)); //초기화 여부 확인
+      List<Member> members = em.createQuery("select m from Member m", Member.class)
+          .getResultList();
+      //sql: select * from Member 쿼리 실행 후, 보니까 즉시지연이라 Team도 바로 가져오는 쿼리 실행 -> 각 맴버마다 팀 다 가져옴(1+N개)
+      // lazy로 모두 가져오는 쿼리 하고싶으면, select m from Member m fetch join 쓰면 되니까 모두 lazy로 일단 설정하자
 
       tx.commit();
     } catch (Exception e) {
