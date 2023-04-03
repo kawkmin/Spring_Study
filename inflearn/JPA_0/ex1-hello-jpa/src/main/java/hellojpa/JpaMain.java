@@ -27,8 +27,14 @@ public class JpaMain {
       parent.addChild(child2);
 
       em.persist(parent);
-//      em.persist(child1); cascade all 하면 자식 엔티티도 전이되어 쿼리 생성
-//      em.persist(child2);
+
+      em.flush();
+      em.clear();
+
+      Parent findParent = em.find(Parent.class, parent.getId());
+      findParent.getChildList().remove(0);
+
+      //em.remove(findParent); //CasCade로 인해 Child 테이블 도 다 지움 (ALL,REMOVE)
 
       tx.commit();
     } catch (Exception e) {
