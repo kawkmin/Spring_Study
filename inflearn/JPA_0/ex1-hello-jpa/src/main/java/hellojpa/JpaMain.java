@@ -26,8 +26,8 @@ public class JpaMain {
       member.getFavoriteFoods().add("족발");
       member.getFavoriteFoods().add("피자");
 
-      member.getAddressHistory().add(new Address("old1", "street", "10000"));
-      member.getAddressHistory().add(new Address("old2", "street", "10000"));
+      member.getAddressHistory().add(new AddressEntity("old1", "street", "10000"));
+      member.getAddressHistory().add(new AddressEntity("old2", "street", "10000"));
 
       em.persist(member); //라이프 사이클이 같다
 
@@ -49,14 +49,14 @@ public class JpaMain {
 
       // set 지양
 //      findMember.getHomeAddress().setCity("newCity");
-      findMember.setHomeAddress(new Address("newCity", findMember.getHomeAddress().getStreet(),
-          findMember.getHomeAddress().getStreet()));
-
-      findMember.getFavoriteFoods().remove("치킨");
-      findMember.getFavoriteFoods().add("한식");
-
-      findMember.getAddressHistory().remove(new Address("old1", "street", "10000")); //eqauls 사용
-      findMember.getAddressHistory().add(new Address("newCity", "street", "10000"));
+//      findMember.setHomeAddress(new Address("newCity", findMember.getHomeAddress().getStreet(),
+//          findMember.getHomeAddress().getStreet()));
+//
+//      findMember.getFavoriteFoods().remove("치킨");
+//      findMember.getFavoriteFoods().add("한식");
+//
+//      findMember.getAddressHistory().remove(new AddressEntity("old1", "street", "10000")); //eqauls 사용
+//      findMember.getAddressHistory().add(new AddressEntity("newCity", "street", "10000"));
 
       tx.commit();
     } catch (Exception e) {
