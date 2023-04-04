@@ -6,6 +6,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 public class JpaMain {
 
@@ -18,45 +21,34 @@ public class JpaMain {
 
     try {
 
+//      em.createQuery(
+//              "select m FROM Member m where m.name like '%kim%'", Member.class)
+//          .getResultList();
+
+//      //Criteria 사용 준비 (비추)
+//      CriteriaBuilder cb = em.getCriteriaBuilder();
+//      CriteriaQuery<Member> query = cb.createQuery(Member.class);
+//
+//      Root<Member> m = query.from(Member.class);
+//
+//      CriteriaQuery<Member> cq = query.select(m);
+//      String Flag = "asdf";
+//      if (Flag != null) { //동적 쿼리
+//        cq.where(cb.equal(m.get("username"), "kim"));
+//      }
+//      List<Member> resultList = em.createQuery(cq)
+//          .getResultList();
+
       Member member = new Member();
       member.setName("member1");
-      member.setHomeAddress(new Address("city1", "street", "10000"));
+      em.persist(member);
 
-      member.getFavoriteFoods().add("치킨");
-      member.getFavoriteFoods().add("족발");
-      member.getFavoriteFoods().add("피자");
+      //flush -> commit , query(쿼리에선 DB로 찾아오고, 영속성 캐쉬를 안받기 때문에(원랜 flush 하기전엔 캐쉬로 획득함), 방지하고자 flush 강제로됨)
 
-      member.getAddressHistory().add(new AddressEntity("old1", "street", "10000"));
-      member.getAddressHistory().add(new AddressEntity("old2", "street", "10000"));
-
-      em.persist(member); //라이프 사이클이 같다
-
-      em.flush();
-      em.clear();
-
-      System.out.println("===========================");
-      Member findMember = em.find(Member.class, member.getId());
-
-//      List<Address> addressHistory = findMember.getAddressHistory(); //지연 로딩 확인
-//      for (Address address : addressHistory) {
-//        System.out.println("address = " + address);
-//      }
-//
-//      Set<String> favoriteFoods = findMember.getFavoriteFoods();
-//      for (String favoriteFood : favoriteFoods) {
-//        System.out.println("favoriteFood = " + favoriteFood);
-//      }
-
-      // set 지양
-//      findMember.getHomeAddress().setCity("newCity");
-//      findMember.setHomeAddress(new Address("newCity", findMember.getHomeAddress().getStreet(),
-//          findMember.getHomeAddress().getStreet()));
-//
-//      findMember.getFavoriteFoods().remove("치킨");
-//      findMember.getFavoriteFoods().add("한식");
-//
-//      findMember.getAddressHistory().remove(new AddressEntity("old1", "street", "10000")); //eqauls 사용
-//      findMember.getAddressHistory().add(new AddressEntity("newCity", "street", "10000"));
+      // 네이티브 쿼리
+      List resultList = em.createNativeQuery(
+              "select MEMBER_ID, city, street,zipcode,USERNAME FROM MEMBER;")
+          .getResultList();
 
       tx.commit();
     } catch (Exception e) {
