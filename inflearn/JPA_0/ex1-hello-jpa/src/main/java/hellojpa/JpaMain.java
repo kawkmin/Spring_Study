@@ -1,5 +1,7 @@
 package hellojpa;
 
+import java.util.List;
+import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -15,24 +17,46 @@ public class JpaMain {
     tx.begin();
 
     try {
-      Address address = new Address("city", "street", "1000");
 
       Member member = new Member();
       member.setName("member1");
-      member.setHomeAddress(address);
-      em.persist(member);
+      member.setHomeAddress(new Address("city1", "street", "10000"));
 
-////      Address copyAddress = new Address(address.getCity(), address.getStreet(), address.getZipcode());
-//
-//      Member member2 = new Member();
-//      member2.setName("member2");
-//      member2.setHomeAddress(address);
-//      em.persist(member2);
-//
-////      member.getHomeAddress().setCity("newCity"); // 둘 다 바뀜
+      member.getFavoriteFoods().add("치킨");
+      member.getFavoriteFoods().add("족발");
+      member.getFavoriteFoods().add("피자");
 
-      Address newAddress = new Address("newCity", address.getStreet(), address.getZipcode());
-      member.setHomeAddress(newAddress); // 항상 새로 만들어서 변경
+      member.getAddressHistory().add(new Address("old1", "street", "10000"));
+      member.getAddressHistory().add(new Address("old2", "street", "10000"));
+
+      em.persist(member); //라이프 사이클이 같다
+
+      em.flush();
+      em.clear();
+
+      System.out.println("===========================");
+      Member findMember = em.find(Member.class, member.getId());
+
+//      List<Address> addressHistory = findMember.getAddressHistory(); //지연 로딩 확인
+//      for (Address address : addressHistory) {
+//        System.out.println("address = " + address);
+//      }
+//
+//      Set<String> favoriteFoods = findMember.getFavoriteFoods();
+//      for (String favoriteFood : favoriteFoods) {
+//        System.out.println("favoriteFood = " + favoriteFood);
+//      }
+
+      // set 지양
+//      findMember.getHomeAddress().setCity("newCity");
+      findMember.setHomeAddress(new Address("newCity", findMember.getHomeAddress().getStreet(),
+          findMember.getHomeAddress().getStreet()));
+
+      findMember.getFavoriteFoods().remove("치킨");
+      findMember.getFavoriteFoods().add("한식");
+
+      findMember.getAddressHistory().remove(new Address("old1", "street", "10000")); //eqauls 사용
+      findMember.getAddressHistory().add(new Address("newCity", "street", "10000"));
 
       tx.commit();
     } catch (Exception e) {
