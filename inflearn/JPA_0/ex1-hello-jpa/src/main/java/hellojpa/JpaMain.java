@@ -1,12 +1,9 @@
 package hellojpa;
 
-import java.time.LocalDateTime;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import org.hibernate.Hibernate;
 
 public class JpaMain {
 
@@ -19,22 +16,12 @@ public class JpaMain {
 
     try {
 
-      Child child1 = new Child();
-      Child child2 = new Child();
+      Member member = new Member();
+      member.setName("hello");
+      member.setHomeAddress(new Address("city", "street", "1000"));
+      member.setPeriod(new Period());
 
-      Parent parent = new Parent();
-      parent.addChild(child1);
-      parent.addChild(child2);
-
-      em.persist(parent);
-
-      em.flush();
-      em.clear();
-
-      Parent findParent = em.find(Parent.class, parent.getId());
-      findParent.getChildList().remove(0);
-
-      //em.remove(findParent); //CasCade로 인해 Child 테이블 도 다 지움 (ALL,REMOVE)
+      em.persist(member);
 
       tx.commit();
     } catch (Exception e) {

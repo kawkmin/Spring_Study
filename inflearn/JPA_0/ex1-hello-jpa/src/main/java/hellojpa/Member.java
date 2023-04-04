@@ -1,19 +1,16 @@
 package hellojpa;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
-public class Member extends BaseEntity {
+public class Member {
 
   @Id
   @GeneratedValue
@@ -22,33 +19,23 @@ public class Member extends BaseEntity {
   @Column(name = "USERNAME")
   private String name;
 
-  //@ManyToOne(fetch = FetchType.EAGER) 실무에선 즉시로딩 X
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false) //양방향. 읽기 전용으로, 주인 지정x
-  private Team team;
+  //  private LocalDateTime startDate;
+//  private LocalDateTime endDate;
+  @Embedded
+  private Period period;
 
-  @OneToOne
-  @JoinColumn(name = "LOCKER_ID")
-  private Locker locker;
+  //  private String city;
+//  private String street;
+//  private String zipcode;
+  @Embedded
+  private Address homeAddress;
 
-//  @ManyToMany
-//  @JoinTable(name = "MEMBER_PRODUCT")
-//  private List<Product> products = new ArrayList<>();
-
-  public Team getTeam() {
-    return team;
-  }
-
-  public void setTeam(Team team) {
-    this.team = team;
-  }
-
-  @OneToMany(mappedBy = "member")
-  private List<MemberProduct> memberProducts = new ArrayList<>();
-
-  @OneToMany
-  private List<Member> members = new ArrayList<>();
-
+  @Embedded
+  @AttributeOverrides({
+      @AttributeOverride(name = "city", column = @Column(name = "WORK_CITY")),
+      @AttributeOverride(name = "street", column = @Column(name = "WORK_STREET")),
+      @AttributeOverride(name = "zipcode", column = @Column(name = "WORK_ZIPCODE"))})
+  private Address workAddress;
 
   public Long getId() {
     return id;
@@ -66,4 +53,19 @@ public class Member extends BaseEntity {
     this.name = name;
   }
 
+  public Period getPeriod() {
+    return period;
+  }
+
+  public void setPeriod(Period period) {
+    this.period = period;
+  }
+
+  public Address getHomeAddress() {
+    return homeAddress;
+  }
+
+  public void setHomeAddress(Address homeAddress) {
+    this.homeAddress = homeAddress;
+  }
 }
