@@ -1,5 +1,6 @@
 package jpql;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.EntityManager;
@@ -34,15 +35,14 @@ public class JpaMain {
       em.flush();
       em.clear();
 
-      String query = "select 'a' || 'b' from Member m"; //concat('a','b')
-      //substring(),locate('de','abcdef'),size(t.members),index()..등등 많은 기능
-      //select group_concat(i.name) from Item i <- 커스텀 함수 사용 가능
+//      String query = "select m.team.name from Member m";
+//
+//      List<Team> result = em.createQuery(query, Team.class).getResultList(); // 묵시적 내부 조인 (비추)
 
-      List<String> resultList = em.createQuery(query, String.class).getResultList();
-
-      for (String s : resultList) {
-        System.out.println("s = " + s);
-      }
+//      String query = "select t.members from Team t"; // t.members.username 불가능
+      String query = "select m.username From Team t join t.members m"; // 명시적 조인
+      List<Collection> result = em.createQuery(query, Collection.class).getResultList();
+      System.out.println("result = " + result);
 
       tx.commit();
     } catch (Exception e) {
