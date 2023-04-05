@@ -66,6 +66,10 @@ public class Member {
     this.type = type;
   }
 
+  public Team getTeam() {
+    return team;
+  }
+
   @Override
   public String toString() {
     return "Member{" +
