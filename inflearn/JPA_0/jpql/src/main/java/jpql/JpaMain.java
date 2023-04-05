@@ -34,14 +34,9 @@ public class JpaMain {
       em.flush();
       em.clear();
 
-//      String query = "select " +
-//          "case when m.age<=10 then '학생요금' " +
-//          "when m.age<=60 then '경로요금 '" +
-//          "else '일반요금 '" +
-//          "end "+
-//          "from Member m";
-//      String query = "select coalesce(m.username,'이름 없는 회원') from Member m"; //default 설정
-      String query = "select nullif(m.username,'member1') from Member m"; // member1이면 null반환
+      String query = "select 'a' || 'b' from Member m"; //concat('a','b')
+      //substring(),locate('de','abcdef'),size(t.members),index()..등등 많은 기능
+      //select group_concat(i.name) from Item i <- 커스텀 함수 사용 가능
 
       List<String> resultList = em.createQuery(query, String.class).getResultList();
 
