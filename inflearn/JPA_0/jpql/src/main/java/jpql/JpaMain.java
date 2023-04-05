@@ -34,15 +34,19 @@ public class JpaMain {
       em.flush();
       em.clear();
 
-      String query = "select m.username, 'HELLO',true from Member m where m.type=:userType"; //파라미터 아니면 패키지명까지 써야함
-      List<Object[]> result = em.createQuery(query)
-          .setParameter("userType", MemberType.ADMIN)
-          .getResultList();
+//      String query = "select " +
+//          "case when m.age<=10 then '학생요금' " +
+//          "when m.age<=60 then '경로요금 '" +
+//          "else '일반요금 '" +
+//          "end "+
+//          "from Member m";
+//      String query = "select coalesce(m.username,'이름 없는 회원') from Member m"; //default 설정
+      String query = "select nullif(m.username,'member1') from Member m"; // member1이면 null반환
 
-      for (Object[] objects : result) {
-        System.out.println("objects[0] = " + objects[0]);
-        System.out.println("objects[0] = " + objects[1]);
-        System.out.println("objects[0] = " + objects[2]);
+      List<String> resultList = em.createQuery(query, String.class).getResultList();
+
+      for (String s : resultList) {
+        System.out.println("s = " + s);
       }
 
       tx.commit();
