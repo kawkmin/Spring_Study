@@ -43,37 +43,12 @@ public class JpaMain {
       em.flush();
       em.clear();
 
-//      String query = "select m From Member m";
-//
-//      List<Member> result = em.createQuery(query, Member.class).getResultList();
-//
-//      for (Member member : result) {
-//        System.out.println("member = " + member.getUsername());
-//        System.out.println("member.getTeam().getName() = " + member.getTeam().getName());
-//        //회원1 sql
-//        //회원2 1차캐시
-//        //회원3 sql
-//
-//        //회원 100명 -> N + 1문제 발생
-//      }
-      //패치
-//      String query = "select m From Member m join fetch m.team";
-//      List<Member> result = em.createQuery(query, Member.class).getResultList();
-//
-//      for (Member member : result) {
-//        System.out.println("member = " + member.getUsername());
-//        System.out.println("member.getTeam().getName() = " + member.getTeam().getName());
-//      }
-      //컬렉션 패치 -> 팀A가 2번나옴
-//      String query = "select t From Team t join fetch t.members";
-      String query = "select distinct t From Team t join fetch t.members"; //중복 제거 (같은 식별자 엔티티 제거)
-      List<Team> result = em.createQuery(query, Team.class).getResultList();
+      List<Member> result = em.createNamedQuery("Member.findByUsername", Member.class)
+          .setParameter("username", "회원1")
+          .getResultList();
 
-      for (Team team : result) {
-        System.out.println("team.getName() = " + team.getName());
-        for (Member member : team.getMembers()) {
-          System.out.println("member = " + member);
-        }
+      for (Member member : result) {
+        System.out.println("member = " + member);
       }
 
       tx.commit();
