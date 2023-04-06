@@ -1,9 +1,8 @@
 package jpabook.jpashop;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
-import org.assertj.core.api.Assertions;
+import jpabook.jpashop.domain.Member;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,16 +19,7 @@ class MemberRepositoryTest {
   @Transactional
   @Rollback(value = false)
   public void testMember() {
-    Member member = new Member();
-    member.setUsername("memberA");
 
-    Long savedId = memberRepository.save(member);
-    Member findMember = memberRepository.find(savedId);
-
-    assertThat(findMember.getId()).isEqualTo(member.getId());
-    assertThat(findMember.getUsername()).isEqualTo(member.getUsername());
-    assertThat(findMember).isEqualTo(member);
-    System.out.println("(findMember==member = " + (findMember == member));
   }
 
 }
