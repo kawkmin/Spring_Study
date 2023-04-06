@@ -4,26 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e10496f-9d76-49ed-9707-9b3ca761f203" name="변경" comment="JPA_0:">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jpabook/jpashop/JpaMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jpabook/jpashop/domain/Item.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jpabook/jpashop/domain/Member.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jpabook/jpashop/domain/Order.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jpabook/jpashop/domain/OrderItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jpabook/jpashop/domain/OrderStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ex1-hello-jpa/ex1-hello-jpa.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../ex1-hello-jpa/ex1-hello-jpa.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ex1-hello-jpa/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
+    <list default="true" id="0e10496f-9d76-49ed-9707-9b3ca761f203" name="변경" comment="JPA_0: 프로젝트에 값 타입 매핑 추가">
+      <change afterPath="$PROJECT_DIR$/target/classes/jpabook/jpashop/domain/Category.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/jpabook/jpashop/domain/Delivery.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/jpabook/jpashop/domain/DeliveryStatus.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../jpql/target/classes/jpql/Address.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../jpql/target/classes/jpql/JpaMain.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../jpql/target/classes/jpql/Member.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../jpql/target/classes/jpql/Order.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../jpql/target/classes/jpql/Product.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../jpql/target/classes/jpql/Team.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex1-hello-jpa/src/main/java/hellojpa/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ex1-hello-jpa/src/main/java/hellojpa/Member.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ex1-hello-jpa/target/classes/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ex1-hello-jpa/target/classes/META-INF/persistence.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ex1-hello-jpa/target/classes/hellojpa/JpaMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/../ex1-hello-jpa/target/classes/hellojpa/JpaMain.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ex1-hello-jpa/target/classes/hellojpa/Member.class" beforeDir="false" afterPath="$PROJECT_DIR$/../ex1-hello-jpa/target/classes/hellojpa/Member.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/jpabook/jpashop/JpaMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/jpabook/jpashop/JpaMain.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/jpabook/jpashop/domain/Item.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/jpabook/jpashop/domain/Item.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/jpabook/jpashop/domain/Member.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/jpabook/jpashop/domain/Member.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/jpabook/jpashop/domain/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/jpabook/jpashop/domain/Order.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/jpabook/jpashop/domain/OrderItem.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/jpabook/jpashop/domain/OrderItem.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jpql/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../jpql/src/main/resources/META-INF/persistence.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +41,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+    <option name="RESET_MODE" value="SOFT" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -80,6 +82,9 @@
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\alstj\Desktop\GitHub\Spring_Study\inflearn\JPA_0\jpashop\src\main\resources" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="jpabook.jpashop.domain" />
     </key>
   </component>
   <component name="RunManager" selected="애플리케이션.JpaMain">
@@ -125,11 +130,86 @@
       <option name="presentableId" value="Default" />
       <updated>1680412871002</updated>
       <workItem from="1680412872109" duration="1581000" />
-      <workItem from="1680414465712" duration="316000" />
+      <workItem from="1680414465712" duration="6736000" />
+      <workItem from="1680500834027" duration="2138000" />
+      <workItem from="1680609329911" duration="3204000" />
+      <workItem from="1680695061155" duration="1246000" />
+      <workItem from="1680744772616" duration="1313000" />
+      <workItem from="1680747634379" duration="311000" />
     </task>
+    <task id="LOCAL-00001" summary="JPA_0: 프로젝트 생성(기본 요구사항 큰틀 구현)">
+      <created>1680414836552</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1680414836552</updated>
+    </task>
+    <task id="LOCAL-00002" summary="JPA_0: 프로젝트 생성(기본 요구사항 큰틀 구현)">
+      <created>1680414905214</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1680414905214</updated>
+    </task>
+    <task id="LOCAL-00003" summary="JPA_0: 프로젝트를 관계형 매핑으로 리팩토링">
+      <created>1680428417040</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1680428417040</updated>
+    </task>
+    <task id="LOCAL-00004" summary="JPA_0: 프로젝트에 일대일, 다대다 엔티티 추가">
+      <created>1680447912191</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1680447912191</updated>
+    </task>
+    <task id="LOCAL-00005" summary="JPA_0: 프로젝트에 상속관계 매핑 추가">
+      <created>1680501541176</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1680501541176</updated>
+    </task>
+    <task id="LOCAL-00006" summary="JPA_0: 프로젝트에 지연로딩 설정 및 영속성 전이 설정">
+      <created>1680533674964</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1680533674964</updated>
+    </task>
+    <task id="LOCAL-00007" summary="JPA_0: 프로젝트에 값 타입 매핑 추가">
+      <created>1680609747864</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1680609747864</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="JPA_0: 프로젝트 생성(기본 요구사항 큰틀 구현)" />
+    <MESSAGE value="JPA_0: 프로젝트를 관계형 매핑으로 리팩토링" />
+    <MESSAGE value="JPA_0: 프로젝트에 일대일, 다대다 엔티티 추가" />
+    <MESSAGE value="JPA_0: 프로젝트에 상속관계 매핑 추가" />
+    <MESSAGE value="JPA_0: 프로젝트에 지연로딩 설정 및 영속성 전이 설정" />
+    <MESSAGE value="JPA_0: 프로젝트에 값 타입 매핑 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="JPA_0: 프로젝트에 값 타입 매핑 추가" />
   </component>
 </project>
