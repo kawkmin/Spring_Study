@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -20,6 +21,8 @@ public class Member {
   @GeneratedValue
   @Column(name = "member_id")
   private Long id;
+
+  //@NotEmpty //saveMemberV1을 쓰면 Entity를 변경해야함
   private String name;
 
   @Embedded //생략 가능하지만, 둘 다 써주자
