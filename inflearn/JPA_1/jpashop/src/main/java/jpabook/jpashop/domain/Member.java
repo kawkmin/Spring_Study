@@ -1,5 +1,6 @@
 package jpabook.jpashop.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -28,6 +29,7 @@ public class Member {
   @Embedded //생략 가능하지만, 둘 다 써주자
   private Address address;
 
+  // @JsonIgnore //membersV1을 쓰면 Entity를 변경해야함
   @OneToMany(mappedBy = "member")
   private List<Order> oreders = new ArrayList<>();
 }
