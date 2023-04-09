@@ -104,4 +104,16 @@ public class OrderRepository {
                 " join o.delivery d", OrderSimpleQueryDto.class)
         .getResultList();
   }
+
+  public List<Order> findAllWithItem() {
+    return em.createQuery(
+            "select o from Order o" + //select distinct는 하이버네이트 6부터 자동 적용.
+                " join fetch o.member m" +
+                " join fetch o.delivery d" +
+                " join fetch o.orderItems oi" +
+                " join fetch oi.item i", Order.class)
+//        .setFirstResult(1)
+//        .setMaxResults(100) 페이징은 중복 제거 전을 기준으로 하기 때문에, 일대다일때 하면 안됨
+        .getResultList();
+  }
 }
