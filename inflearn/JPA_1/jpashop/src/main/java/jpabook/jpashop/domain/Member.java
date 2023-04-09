@@ -30,6 +30,7 @@ public class Member {
   private Address address;
 
   // @JsonIgnore //membersV1을 쓰면 Entity를 변경해야함
+  @JsonIgnore
   @OneToMany(mappedBy = "member")
   private List<Order> oreders = new ArrayList<>();
 }
