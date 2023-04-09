@@ -116,4 +116,14 @@ public class OrderRepository {
 //        .setMaxResults(100) 페이징은 중복 제거 전을 기준으로 하기 때문에, 일대다일때 하면 안됨
         .getResultList();
   }
+
+  public List<Order> findAllWithMemberDelivery(int offset, int limit) {
+    return em.createQuery(
+            "select o from Order o" +
+                " join fetch o.member m" +
+                " join fetch o.delivery d", Order.class)
+        .setFirstResult(offset)
+        .setMaxResults(limit)
+        .getResultList();
+  }
 }
