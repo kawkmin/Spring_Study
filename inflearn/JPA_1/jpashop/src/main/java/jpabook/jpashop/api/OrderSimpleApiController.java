@@ -10,6 +10,7 @@ import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.OrderStatus;
 import jpabook.jpashop.repository.OrderRepository;
 import jpabook.jpashop.repository.OrderSearch;
+import jpabook.jpashop.repository.OrderSimpleQueryDto;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.weaver.ast.Or;
@@ -48,6 +49,11 @@ public class OrderSimpleApiController {
     return orderRepository.findAllByString(new OrderSearch()).stream()
         .map(SimpleOrderDto::new)
         .collect(toList());
+  }
+
+  @GetMapping("/api/v4/simple-orders")
+  public List<OrderSimpleQueryDto> ordersV4() {
+    return orderRepository.findOrderDtos();
   }
 
   @Data
