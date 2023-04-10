@@ -46,7 +46,7 @@ public class OrderApiController {
 
   @GetMapping("api/v2/orders")
   public List<OrderDto> ordersV2() {
-    List<Order> orders = orderRepository.findAllByString(new OrderSearch());
+    List<Order> orders = orderRepository.findAll(new OrderSearch());
     return orders.stream()
         .map(o -> new OrderDto(o))
         .collect(toList());
@@ -84,7 +84,7 @@ public class OrderApiController {
 
   @GetMapping("api/v6/orders")
   //public List<OrderFlatDto> ordersV6() { // 스펙이 다름. 노가다로 스펙 같게
-    //return orderQueryRepository.findAllByDto_flat();
+  //return orderQueryRepository.findAllByDto_flat();
   public List<OrderQueryDto> ordersV6() {
     List<OrderFlatDto> flats = orderQueryRepository.findAllByDto_flat();
     return flats.stream()
