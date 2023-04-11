@@ -2,6 +2,8 @@ package study.datajpa.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +30,8 @@ class MemberRepositoryTest {
   MemberRepository memberRepository; //인터페이스를 인스턴스 생성? -> 프록시
   @Autowired
   TeamRepository teamRepository;
+  @PersistenceContext
+  EntityManager em;
 
   @Test
   public void testMember() {
@@ -184,5 +188,23 @@ class MemberRepositoryTest {
     assertThat(page.getTotalPages()).isEqualTo(2); //
     assertThat(page.isFirst()).isTrue();
     assertThat(page.hasNext()).isTrue();
+  }
+
+  @Test
+  public void bulkUpdate() {
+    memberRepository.save(new Member(("member1"), 10));
+    memberRepository.save(new Member(("member2"), 19));
+    memberRepository.save(new Member(("member3"), 20));
+    memberRepository.save(new Member(("member4"), 21));
+    memberRepository.save(new Member(("member5"), 40));
+
+    int resultCount = memberRepository.bulkAgePlus(20);
+    //em.clear();
+
+    List<Member> result = memberRepository.findByUsername("member5");
+    Member member = result.get(0);
+    System.out.println("member.getAge() = " + member.getAge()); //em.clear 안하면 41이 안나오고 40이 나옴
+
+    assertThat(resultCount).isEqualTo(3);
   }
 }
