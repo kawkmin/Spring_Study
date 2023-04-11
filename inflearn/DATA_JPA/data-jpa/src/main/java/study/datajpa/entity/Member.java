@@ -26,7 +26,7 @@ import lombok.ToString;
     query = "select m from Member m where m.username = :username" // 가장 큰 장점: 오타가 있으면 컴파일 에러
 )
 //@NamedEntityGraph(name = "Member.all", attributeNodes = @NamedAttributeNode("team"))
-public class Member extends JpaBaseEntity{
+public class Member extends BaseEntity{
 
   @Id
   @GeneratedValue
