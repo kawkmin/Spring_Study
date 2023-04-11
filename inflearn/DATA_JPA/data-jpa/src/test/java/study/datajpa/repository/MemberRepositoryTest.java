@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.test.annotation.Rollback;
@@ -32,6 +31,9 @@ class MemberRepositoryTest {
   TeamRepository teamRepository;
   @PersistenceContext
   EntityManager em;
+
+//  @Autowired
+//  MemberQueryRepository memberQueryRepository;
 
   @Test
   public void testMember() {
@@ -251,5 +253,10 @@ class MemberRepositoryTest {
     em.clear();
 
     List<Member> result = memberRepository.findLocksByUsername("member1");
+  }
+
+  @Test
+  public void callCustom() {
+    List<Member> result = memberRepository.findMemberCustom(); //인터페이스를 구현한 것을 찾아서 알아서 써줌
   }
 }
