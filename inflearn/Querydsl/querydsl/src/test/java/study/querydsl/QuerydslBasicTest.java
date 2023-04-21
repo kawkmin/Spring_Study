@@ -236,4 +236,60 @@ public class QuerydslBasicTest {
         .extracting("username")
         .containsExactly("teamA", "teamB");
   }
+
+  @Test
+  public void join_on_filtering() {
+    List<Tuple> result = queryFactory
+        .select(member, team)
+        .from(member)
+        //.join(member.team, team).on(team.name.eq("teamA")) //leftJoin...등 같은 경우
+        .join(member.team, team)
+        .where(team.name.eq("teamA")) // 익숙한 where절 선호 (innerJoin이면 on이랑 같음)
+        .fetch();
+
+    for (Tuple tuple : result) {
+      System.out.println("tuple = " + tuple);
+      /*
+      leftJoin
+      tuple = [Member(id=1, username=member1, age=10), Team(id=1, name=teamA)]
+      tuple = [Member(id=2, username=member2, age=20), Team(id=1, name=teamA)]
+      tuple = [Member(id=3, username=member3, age=30), null] // teamB라서 조인 X
+      tuple = [Member(id=4, username=member4, age=40), null]
+
+      join(inner) or where()
+      tuple = [Member(id=1, username=member1, age=10), Team(id=1, name=teamA)]
+      tuple = [Member(id=2, username=member2, age=20), Team(id=1, name=teamA)]
+       */
+
+    }
+  }
+
+  // 연관관계 없는 엔티티 외부 조인
+  @Test
+  public void join_on_no_relation() {
+    em.persist(new Member("teamA"));
+    em.persist(new Member("teamB"));
+    em.persist(new Member("teamC"));
+    em.flush();
+    em.clear();
+
+    List<Tuple> result = queryFactory
+        .select(member, team)
+        .from(member)
+        .leftJoin(team).on(member.username.eq(team.name)) //묵시적 조인 발생 X
+        .fetch();
+
+    for (Tuple tuple : result) {
+      System.out.println("tuple = " + tuple);
+      /*
+      tuple = [Member(id=1, username=member1, age=10), null]
+      tuple = [Member(id=2, username=member2, age=20), null]
+      tuple = [Member(id=3, username=member3, age=30), null]
+      tuple = [Member(id=4, username=member4, age=40), null]
+      tuple = [Member(id=5, username=teamA, age=0), Team(id=1, name=teamA)] //조건 만족만 가져옴
+      tuple = [Member(id=6, username=teamB, age=0), Team(id=2, name=teamB)]
+      tuple = [Member(id=7, username=teamC, age=0), null]
+       */
+    }
+  }
 }
