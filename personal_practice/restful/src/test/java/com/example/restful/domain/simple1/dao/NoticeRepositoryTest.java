@@ -19,9 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 class NoticeRepositoryTest {
 
-  @PersistenceContext
-  EntityManager em;
-
   @Autowired
   NoticeRepository noticeRepository;
 
