@@ -24,6 +24,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import study.querydsl.dto.MemberDto;
+import study.querydsl.dto.MemberDtoClass;
+import study.querydsl.dto.QMemberDtoClass;
 import study.querydsl.dto.UserDto;
 import study.querydsl.entity.Member;
 import study.querydsl.entity.QMember;
@@ -521,12 +523,25 @@ public class QuerydslBasicTest {
   @Test
   public void findUserDtoByConstructor() {
     List<UserDto> result = queryFactory
-        .select(Projections.constructor(UserDto.class, member.username, member.age))
+        .select(
+            Projections.constructor(UserDto.class, member.username, member.age)) //런타임 에러가 일어날 수 있음
         .from(member)
         .fetch();
 
     for (UserDto userDto : result) {
       System.out.println("userDto = " + userDto);
+    }
+  }
+
+  @Test
+  public void findDtoByQueryProjection() {
+    List<MemberDtoClass> result = queryFactory
+        .select(new QMemberDtoClass(member.username, member.age)) // 런타임 에러를 잡아주는 이점 & record는 안됨
+        .from(member)
+        .fetch();
+
+    for (MemberDtoClass memberDtoClass : result) {
+      System.out.println("memberDtoClass = " + memberDtoClass);
     }
   }
 
