@@ -25,6 +25,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 import study.querydsl.dto.MemberDto;
 import study.querydsl.dto.MemberDtoClass;
@@ -602,5 +603,33 @@ public class QuerydslBasicTest {
     return usernameEq(usernameCond).and(ageEq(ageCond));
   }
 
+  @Test
+  @Commit //테스트라도 트랜잭션 반영
+  public void bulkUpdate() {
+    long count = queryFactory
+        .update(member)
+        .set(member.username, "비회원")
+        .where(member.age.lt(28))
+        .execute(); //영향 받은 수 리턴
+
+    em.flush(); //벌크연산 후 영속성 초기화
+    em.clear();
+  }
+
+  @Test
+  public void bulkAdd() {
+    long count = queryFactory
+        .update(member)
+        .set(member.age, member.age.add(1))
+        .execute();
+  }
+
+  @Test
+  public void bulkDelete() {
+    long count = queryFactory
+        .delete(member)
+        .where(member.age.gt(18))
+        .execute();
+  }
 
 }
