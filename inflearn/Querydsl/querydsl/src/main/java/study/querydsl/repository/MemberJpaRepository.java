@@ -94,4 +94,37 @@ public class MemberJpaRepository {
         .fetch();
 
   }
+
+  public List<Member> search(MemberSearchCondition condition) {
+    return queryFactory
+        .selectFrom(member)
+        .leftJoin(member.team, team)
+        .where(
+            usernameEq(condition.getUserName()),
+            teamNameEq(condition.getTeamName()),
+            ageGoe(condition.getAgeGoe()),
+            ageLoe(condition.getAgeLoe())
+        )
+        .fetch();
+  }
+
+  private BooleanExpression ageBetween(int ageLoe, int ageGoe) { //null 대비 코드 없음(임시)
+    return ageGoe(ageLoe).and(ageGoe(ageGoe));
+  }
+
+  private BooleanExpression usernameEq(String userName) {
+    return hasText(userName) ? member.username.eq(userName) : null;
+  }
+
+  private BooleanExpression teamNameEq(String teamName) {
+    return hasText(teamName) ? team.name.eq(teamName) : null;
+  }
+
+  private BooleanExpression ageGoe(Integer ageGoe) {
+    return ageGoe != null ? member.age.goe(ageGoe) : null;
+  }
+
+  private BooleanExpression ageLoe(Integer ageLoe) {
+    return ageLoe != null ? member.age.loe(ageLoe) : null;
+  }
 }
