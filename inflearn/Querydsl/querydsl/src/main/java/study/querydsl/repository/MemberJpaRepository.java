@@ -5,6 +5,8 @@ import static study.querydsl.entity.QMember.*;
 import static study.querydsl.entity.QTeam.team;
 
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import java.util.List;
@@ -88,6 +90,7 @@ public class MemberJpaRepository {
             team.name.as("teamName")))
         .from(member)
         .leftJoin(member.team, team)
+        .where(builder)
         .fetch();
 
   }
