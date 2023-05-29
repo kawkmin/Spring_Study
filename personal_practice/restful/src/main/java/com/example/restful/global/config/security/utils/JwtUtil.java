@@ -7,6 +7,11 @@ import java.util.Date;
 
 public class JwtUtil {
 
+  public static boolean isExpired(String token, String secretkey) {
+    return Jwts.parser().setSigningKey(secretkey).parseClaimsJws(token).getBody().getExpiration()
+        .before(new Date());
+  }
+
   public static String createJwt(String userName, String secretKey, Long expiredMs) {
     Claims claims = Jwts.claims();
     claims.put("userName", userName);
