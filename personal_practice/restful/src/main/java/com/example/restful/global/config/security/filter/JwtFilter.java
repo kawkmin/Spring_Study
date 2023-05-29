@@ -48,12 +48,14 @@ public class JwtFilter extends OncePerRequestFilter {
       return;
     }
 
-    String userName = "";
+    String userName = JwtUtil.getUserName(token, secretKey);
+    log.info("userName ={}", userName);
 
+    //권한 부여
     UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
         userName, null, List.of(new SimpleGrantedAuthority("USER")));
 
-    //권한 부여
+    //Detail 넣기
     authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 

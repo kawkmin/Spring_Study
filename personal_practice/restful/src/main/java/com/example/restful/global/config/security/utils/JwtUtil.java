@@ -7,6 +7,11 @@ import java.util.Date;
 
 public class JwtUtil {
 
+  public static String getUserName(String token, String secretKey) {
+    return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody()
+        .get("userName", String.class);
+  }
+
   public static boolean isExpired(String token, String secretkey) {
     return Jwts.parser().setSigningKey(secretkey).parseClaimsJws(token).getBody().getExpiration()
         .before(new Date());
