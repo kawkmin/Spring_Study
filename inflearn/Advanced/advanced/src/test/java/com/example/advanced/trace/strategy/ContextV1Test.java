@@ -7,6 +7,10 @@ import com.example.advanced.trace.strategy.code.strategy.StrategyLogic2;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
+/**
+ * 전략 + 필드
+ * - 선조립 후실행 - 재사용할 때 args 필요 X (의존주입 완료된 Bean 객체 사용하듯이), 대신 유연성 낮고 동시성 문제
+ */
 @Slf4j
 public class ContextV1Test {
 
