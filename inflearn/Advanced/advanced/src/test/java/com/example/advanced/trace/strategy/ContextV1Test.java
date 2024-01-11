@@ -48,4 +48,64 @@ public class ContextV1Test {
         ContextV1 context2 = new ContextV1(strategyLogic2);
         context2.execute();
     }
+
+    /**
+     * 전략 + 익명
+     */
+    @Test
+    void strategyV2() {
+        Strategy strategyLogic1 = new Strategy() {
+            @Override
+            public void call() {
+                log.info("비지니스 로직1 실행");
+            }
+        };
+        ContextV1 contextV1 = new ContextV1(strategyLogic1);
+        log.info("strategyLogic={}", strategyLogic1.getClass());
+        contextV1.execute();
+
+        Strategy strategyLogic2 = new Strategy() {
+            @Override
+            public void call() {
+                log.info("비지니스 로직2 실행");
+            }
+        };
+        ContextV1 contextV2 = new ContextV1(strategyLogic2);
+        log.info("strategyLogic={}", strategyLogic2.getClass());
+        contextV2.execute();
+    }
+
+    /**
+     * 전략 + 깔끔한 익명
+     */
+    @Test
+    void strategyV3() {
+        ContextV1 contextV1 = new ContextV1(new Strategy() {
+            @Override
+            public void call() {
+                log.info("비지니스 로직1 실행");
+            }
+        });
+        contextV1.execute();
+
+        ContextV1 contextV2 = new ContextV1(new Strategy() {
+            @Override
+            public void call() {
+                log.info("비지니스 로직2 실행");
+            }
+        });
+        contextV2.execute();
+    }
+
+    /**
+     * 전략 + 람다 (인터페이스에 메서드가 1개만 있어야함)
+     */
+    @Test
+    void strategyV4() {
+        ContextV1 contextV1 = new ContextV1(() -> log.info("비지니스 로직1 실행"));
+        contextV1.execute();
+
+        ContextV1 contextV2 = new ContextV1(() -> log.info("비지니스 로직2 실행"));
+        contextV2.execute();
+    }
 }
